@@ -49,6 +49,21 @@ public class TodoService {
         return retrieve(entity.getUserId());
     }
 
+    public List<TodoEntity> delete(final TodoEntity entity){
+        validate(entity);
+
+        try {
+            repository.delete(entity);
+        }catch (Exception e){
+            log.error("error deleting entity", entity.getId(), e);
+
+            throw new RuntimeException("error deleting entity" + entity.getId());
+        }
+        return retrieve(entity.getUserId());
+    }
+
+
+
     // 🔥 validate 메서드 따로 정의
     private void validate(final TodoEntity entity){
         if(entity == null){
